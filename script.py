@@ -106,6 +106,26 @@ def upload_to_api(filepath, headers=None):
         return response
 
 
+def upload_with_retry(filepath, headers=None, max_retries=3):
+    """
+    Upload a resume file to the API with retry logic.
+    Tries up to max_retries times in case of failure.
+    Returns the response if successful, or None if all attempts fail.
+    """
+    for attempt in range(1, max_retries + 1):
+        try:
+            response = upload_to_api(filepath, headers)
+            if response.status_code == 200:
+                return response
+            else:
+                print(f"   ❌ API Error (Status {response.status_code}) on attempt {attempt}: {response.text}")
+        except Exception as e:
+            print(f"   ❌ Exception during upload (attempt {attempt}): {e}")
+        if attempt < max_retries:
+            print(f"   🔄 Retrying upload ({attempt + 1}/{max_retries})...")
+    return None
+
+
 def main():
     """
     Main function to process emails with CV attachments.
@@ -180,15 +200,15 @@ def main():
 
                         print(f"   ✔ Found CV attachment: {filename}")
 
-                        # Upload to API
-                        print("   ⬆ Uploading to API...")
-                        response = upload_to_api(temp_path)
+                        # Upload to API with retry
+                        print("   ⬆ Uploading to API (with retry)...")
+                        response = upload_with_retry(temp_path)
 
-                        if response.status_code == 200:
+                        if response is not None:
                             print("   ✔ Upload successful! API response:")
                             print("     →", response.json())
                         else:
-                            print(f"   ❌ API Error (Status {response.status_code}):", response.text)
+                            print(f"   ❌ Failed to upload {filename} after 3 attempts.")
 
                     except Exception as e:
                         print(f"   ❌ Error processing attachment {filename}: {e}")
