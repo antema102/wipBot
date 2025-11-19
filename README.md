@@ -71,10 +71,36 @@ DELETE_AFTER_PROCESSING=false
 
 ## 🎯 Utilisation
 
+### Méthode Standard (Node.js)
+
+Tester la configuration:
+```bash
+npm run test-config
+```
+
 Démarrer le bot:
 ```bash
 npm start
 ```
+
+### Méthode Docker
+
+Construire et démarrer avec Docker Compose:
+```bash
+docker-compose up -d
+```
+
+Voir les logs:
+```bash
+docker-compose logs -f wipbot
+```
+
+Arrêter le bot:
+```bash
+docker-compose down
+```
+
+### Fonctionnement
 
 Le bot va:
 1. Se connecter au serveur IMAP

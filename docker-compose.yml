@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  wipbot:
+    build: .
+    container_name: wipbot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./logs:/app/logs
+    environment:
+      - NODE_ENV=production
+    # Uncomment if you need to access logs from host
+    # ports:
+    #   - "3000:3000"
