@@ -1,0 +1,15 @@
+Container Docker
+↓
+Cron toutes les 1h
+↓
+Script Python
+↓
+Lit les nouveaux emails IONOS
+↓
+Récupère PDF/DOCX uniquement
+↓
+Envoie vers l’API WipWBot
+↓
+Enregistre l’ID dans processed_emails.txt
+↓
+Aucun doublon, tout est automatique.

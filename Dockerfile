@@ -1,28 +1,22 @@
-# Use Node.js LTS version
-FROM node:18-alpine
+FROM python:3.12.8
 
-# Set working directory
+# Installer cron
+RUN apt-get update && apt-get install -y cron
+
+# Dossier de travail
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
+# Copier les fichiers
+COPY requirements.txt .
+COPY script.py .
+COPY cronjob .
+COPY processed_emails.txt .
 
-# Install dependencies
-RUN npm ci --only=production
+# Installer les dépendances Python
+RUN pip install -r requirements.txt
 
-# Copy application files
-COPY . .
+# Installer la tâche cron
+RUN chmod 0644 /app/cronjob && crontab /app/cronjob
 
-# Create a non-root user
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nodejs -u 1001 && \
-    chown -R nodejs:nodejs /app
-
-# Switch to non-root user
-USER nodejs
-
-# Expose port (if needed for future features)
-EXPOSE 3000
-
-# Start the application
-CMD ["npm", "start"]
+# Lancer cron au démarrage
+CMD cron && tail -f /var/log/cron.log
