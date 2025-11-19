@@ -2,6 +2,14 @@
  * Exemple de serveur API simple pour recevoir les CVs
  * Ce serveur peut être utilisé pour tester le bot
  * 
+ * ⚠️  AVERTISSEMENT: Ceci est un exemple pour le développement/test uniquement!
+ * Pour la production, ajoutez:
+ * - Rate limiting (ex: express-rate-limit)
+ * - Authentification/autorisation
+ * - Validation des fichiers
+ * - Gestion des erreurs appropriée
+ * - HTTPS
+ * 
  * Usage: node examples/api-server-example.js
  */
 

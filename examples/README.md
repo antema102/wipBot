@@ -6,6 +6,8 @@ Ce dossier contient des exemples d'utilisation de WipBot.
 
 Un exemple de serveur API pour tester le bot localement.
 
+⚠️ **Note de sécurité**: Cet exemple est uniquement pour le développement et les tests. Pour la production, ajoutez rate limiting, authentification, validation des fichiers, et utilisez HTTPS.
+
 ### Installation
 
 ```bash
