@@ -7,6 +7,7 @@
     "start": "node index.js",
     "dev": "node index.js",
     "test-config": "node test-config.js",
+    "health-check": "node health-check.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": ["email", "cv", "automation", "imap", "recruitment"],

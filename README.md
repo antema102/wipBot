@@ -2,6 +2,8 @@
 
 Système d'automatisation de CV qui récupère les CVs envoyés par email et les transmet à une API.
 
+> **🚀 [Guide de Démarrage Rapide](QUICKSTART.md)** - Configuration en 5 minutes
+
 ## 📋 Description
 
 Ce bot Node.js surveille automatiquement une boîte email IONOS (recrutement@wipwork.com) pour récupérer les CVs reçus en pièces jointes et les envoyer à une API pour traitement.
