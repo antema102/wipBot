@@ -1,0 +1,21 @@
+{
+  "name": "wipbot",
+  "version": "1.0.0",
+  "description": "CV automation system that fetches CVs from email and sends them to an API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["email", "cv", "automation", "imap", "recruitment"],
+  "author": "WipWork",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.13.2",
+    "dotenv": "^17.2.3",
+    "form-data": "^4.0.5",
+    "imap": "^0.8.19",
+    "mailparser": "^3.9.0"
+  }
+}
