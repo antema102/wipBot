@@ -1,22 +1,33 @@
 FROM python:3.12.8
 
-# Installer cron
-RUN apt-get update && apt-get install -y cron
+# Install cron and clean up
+RUN apt-get update && apt-get install -y cron && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Dossier de travail
+# Set working directory
 WORKDIR /app
 
-# Copier les fichiers
+# Copy requirements first for better caching
 COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application files
 COPY script.py .
 COPY cronjob .
-COPY processed_emails.txt .
 
-# Installer les dépendances Python
-RUN pip install -r requirements.txt
+# Create processed_emails.txt if it doesn't exist
+RUN touch processed_emails.txt
 
-# Installer la tâche cron
+# Setup cron job
 RUN chmod 0644 /app/cronjob && crontab /app/cronjob
 
-# Lancer cron au démarrage
+# Create log file
+RUN touch /var/log/cron.log
+
+# Note: .env file should be mounted as a volume when running the container
+# Example: docker run -v $(pwd)/.env:/app/.env wipbot
+
+# Start cron and tail log file
 CMD cron && tail -f /var/log/cron.log
